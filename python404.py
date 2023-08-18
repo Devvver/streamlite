@@ -4,7 +4,7 @@ import pandas as pd
 import requests
 import time
 import io
-
+import xlsxwriter
 html_code = """
 <!DOCTYPE html>
 <html>
@@ -103,12 +103,21 @@ def get_table_download_link_csv(df):
 
 def get_table_download_link_excel(df):
     output = io.BytesIO()
-    writer = pd.ExcelWriter(output, engine='openpyxl')
+
+    # Создаем объект ExcelWriter с движком xlsxwriter
+    writer = pd.ExcelWriter(output, engine='xlsxwriter')
+
+    # Записываем DataFrame в Excel
     df.to_excel(writer, index=False)
-    writer.close()  # Закрываем объект ExcelWriter
+
+    # Закрываем объект ExcelWriter
+    writer.save()
+    writer.close()
 
     excel_data = output.getvalue()
     b64 = base64.b64encode(excel_data).decode()
+
+    # Генерируем ссылку для скачивания Excel файла
     href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="data.xlsx" target="_blank">Скачать Excel файл (вся таблица)</a>'
     return href
 
