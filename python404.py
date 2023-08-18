@@ -4,7 +4,7 @@ import pandas as pd
 import requests
 import time
 import io
-import xlsxwriter
+import XlssWriter
 html_code = """
 <!DOCTYPE html>
 <html>
