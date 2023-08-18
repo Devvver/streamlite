@@ -88,4 +88,4 @@ urllib3==2.0.3
 validators==0.20.0
 watchdog==3.0.0
 zipp==3.16.0
-xlsxwriter==3.1.2
+XlssWriter==3.1.2
