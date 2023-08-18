@@ -161,7 +161,6 @@ if st.session_state.clicked[1]:
             filtered_df = export_df[export_df["Ответ"] == str(response_code)]
 
         st.markdown(get_table_download_link_csv(filtered_df), unsafe_allow_html=True)
-        st.balloons()
         st.stop()
 
         st.session_state.clicked[1] = False
