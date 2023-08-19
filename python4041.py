@@ -4,7 +4,7 @@ import pandas as pd
 import requests
 import time
 import io
-
+from requests.exceptions import ReadTimeout, ConnectionError
 html_code = """
 <!DOCTYPE html>
 <html>
@@ -81,7 +81,7 @@ def check_url(url):
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36'
         }
-        response = requests.head(url, headers=headers)
+        response = requests.head(url, headers=headers, timeout=10)
         status_code = response.status_code
         if status_code == 200:
             result = "200"
@@ -89,8 +89,10 @@ def check_url(url):
             result = "404"
         else:
             result = f"{status_code}"
-    except requests.ConnectionError:
-        result = "-1"
+    except ReadTimeout as e:
+        result = f"-1"
+    except ConnectionError as e:
+        result = f"-1"
 
     return url, result
 
