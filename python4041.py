@@ -81,7 +81,7 @@ def check_url(url):
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36'
         }
-        response = requests.head(url, headers=headers, timeout=10)
+        response = requests.head(url, headers=headers, timeout=10,verify=False)
         status_code = response.status_code
         if status_code == 200:
             result = "200"
